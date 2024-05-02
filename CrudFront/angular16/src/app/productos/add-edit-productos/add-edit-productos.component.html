@@ -1,0 +1,79 @@
+<div class="container-lg d-flex align-items-center justify-content-center">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombreProducto">Nombre del Producto</label>
+      <input type="text" id="nombreProducto" class="form-control"
+             formControlName="nombreProducto"
+             [class.is-invalid]="productForm.get('nombreProducto').invalid &&
+             productForm.get('nombreProducto').touched">
+      <div *ngIf="productForm.get('nombreProducto').invalid && productForm.get('nombreProducto').touched"
+           class="invalid-feedback">
+        <div *ngIf="productForm.get('nombreProducto').errors.required">Nombre del producto es requerido.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="gratuito">Gratuito</label>
+      <div class="d-flex justify-content-between">
+        <input type="checkbox" id="gratuito" class="form-check-input" formControlName="gratuito">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" class="form-control" formControlName="precio"
+             [class.is-invalid]="productForm.get('precio').invalid && productForm.get('precio').touched">
+      <div *ngIf="productForm.get('precio').invalid && productForm.get('precio').touched" class="invalid-feedback">
+        <div *ngIf="productForm.get('precio').errors.required">El precio es requerido.</div>
+        <div *ngIf="productForm.get('precio').errors.min">El precio no puede ser negativo.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="stock">Stock</label>
+      <input type="number" id="stock" class="form-control" formControlName="stock"
+             [class.is-invalid]="productForm.get('stock').invalid && productForm.get('stock').touched">
+      <div *ngIf="productForm.get('stock').invalid && productForm.get('stock').touched" class="invalid-feedback">
+        <div *ngIf="productForm.get('stock').errors.required">El stock es requerido.</div>
+        <div *ngIf="productForm.get('stock').errors.min">El stock no puede ser cero o negativo.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Tiempo de Creación</label>
+      <div class="d-flex justify-content-between">
+        <input type="text" class="form-control" formControlName="horaCreacion" placeholder="HH" maxlength="2"
+               [class.is-invalid]="productForm.get('horaCreacion').invalid && productForm.get('horaCreacion').touched">
+        <input type="text" class="form-control" formControlName="minutoCreacion" placeholder="MM" maxlength="2"
+               [class.is-invalid]="productForm.get('minutoCreacion').invalid && productForm.get('minutoCreacion').touched">
+        <input type="text" class="form-control" formControlName="segundoCreacion" placeholder="SS" maxlength="2"
+               [class.is-invalid]="productForm.get('segundoCreacion').invalid && productForm.get('segundoCreacion').touched">
+        <div class="invalid-feedback d-block">
+          <div *ngIf="productForm.get('horaCreacion').errors.pattern || productForm.get('horaCreacion').errors.max">
+            Hora inválida (00-23).</div>
+
+          <div *ngIf="productForm.get('minutoCreacion').errors.pattern || productForm.get('minutoCreacion').errors.max">
+            Minuto inválido (00-59).</div>
+
+          <div *ngIf="productForm.get('segundoCreacion').errors.pattern || productForm.get('segundoCreacion').errors.max">
+            Segundo inválido (00-59).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaCreacion">Fecha de Creación</label>
+      <input type="date" id="fechaCreacion" class="form-control" formControlName="fechaCreacion"
+             [class.is-invalid]="productForm.get('fechaCreacion').invalid && productForm.get('fechaCreacion').touched">
+      <div *ngIf="productForm.get('fechaCreacion').invalid && productForm.get('fechaCreacion').touched" class="invalid-feedback">
+        La fecha de creación es requerida.
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn btn-sm btn-danger" (click)="goToProduct()">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+
+</div>

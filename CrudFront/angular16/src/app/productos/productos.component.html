@@ -1,0 +1,68 @@
+
+<div class="body">
+  <!-- Botón para redirigir a la página de agregar/editar productos -->
+  <button type="button" class="btn btn-success mb-3" (click)="goToAddEditProduct()">
+    Agregar Producto
+  </button>
+
+ <div class="table">
+    <mat-table [dataSource]="dataSource">
+
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="nombreProducto">
+        <th mat-header-cell *matHeaderCellDef> Nombre del Producto </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreProducto}} </td>
+      </ng-container>
+
+      <!-- Free Column -->
+      <ng-container matColumnDef="gratuito">
+        <th mat-header-cell *matHeaderCellDef> Gratuito </th>
+        <td mat-cell *matCellDef="let element"> {{element.gratuito ? 'Sí' : 'No'}} </td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="precio">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let element"> {{element.precio | currency}} </td>
+      </ng-container>
+
+      <!-- Stock Column -->
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef> Stock </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+      </ng-container>
+
+      <!-- Creation Time Column -->
+      <ng-container matColumnDef="tiempoCreacion">
+        <th mat-header-cell *matHeaderCellDef> Tiempo de Creación </th>
+        <td mat-cell *matCellDef="let element"> {{element.tiempoCreacion}} </td>
+      </ng-container>
+
+      <!-- Creation Date Column -->
+      <ng-container matColumnDef="fechaCreacion">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Creación </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaCreacion | date}} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-sm btn-primary" (click)="goToAddEditProduct(element.id)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarProducto(element.id)">Eliminar</button>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <!-- Header and Row Declarations -->
+      <mat-header-row *matHeaderRowDef="['nombreProducto', 'gratuito', 'precio', 'stock', 'tiempoCreacion',
+      'fechaCreacion', 'acciones']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['nombreProducto', 'gratuito', 'precio', 'stock', 'tiempoCreacion',
+      'fechaCreacion', 'acciones']"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+ </div>
+</div>
+
